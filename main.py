@@ -43,7 +43,7 @@ async def get():
     return HTMLResponse(html)
 
 
-from data import gen_datasets
+from data import gen_datasets, floating_list_make
 import json
 
 @app.websocket("/ws")
@@ -55,10 +55,16 @@ async def websocket_endpoint(websocket: WebSocket):
         data = await websocket.receive_text()
         print(f"Message text was:{data}")
 
-        # Преобразуем строку в JSON
+        # Переводим запрос в JSON
         json_data = json.loads(data)
 
-        response_data = gen_datasets(json_data["chart"])
-        # await websocket.send_text(response_data)
+
+        if json_data["chart"] in ["bar", "bubble", "multiline"]:
+            response_data = gen_datasets(json_data["chart"])
+
+
+        if json_data["chart"] == "watch":
+            response_data = floating_list_make()
+
 
         await websocket.send_json(response_data)

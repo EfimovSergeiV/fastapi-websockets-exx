@@ -8,7 +8,6 @@ def gen_datasets(keyword):
             {
                 "label": 'Значения',
                 "backgroundColor": '#3b82f6',
-                # "data": [10, 20, 15, 30, 25, 35, 40],
                 "data": [randint(1, 100) for _ in range(7)]
             }
         ],
@@ -57,3 +56,14 @@ def gen_datasets(keyword):
 
     }
     return datasets.get(keyword, [])
+
+
+
+floating_list = []
+def floating_list_make():
+    floating_list.append(randint(1, 100))
+    
+    if len(floating_list) > 50:
+        floating_list.remove(floating_list[0])
+
+    return floating_list
