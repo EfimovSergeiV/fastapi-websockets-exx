@@ -59,11 +59,16 @@ def gen_datasets(keyword):
 
 
 
+import time, random
 floating_list = []
+
 def floating_list_make():
     floating_list.append(randint(1, 100))
-    
-    if len(floating_list) > 50:
+
+    if len(floating_list) > 30:
         floating_list.remove(floating_list[0])
 
-    return floating_list
+    return {
+            "x": int(time.time() * 1000),  # timestamp в мс
+            "y": round(random.uniform(0, 500), 2)  # нагрузка 0–100
+        }
